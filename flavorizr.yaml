@@ -1,0 +1,33 @@
+ide: "vscode"
+flavors:
+  app_red_camera_roll:
+    app:
+      name: "App Red Camera Roll"
+    android:
+      applicationId: "com.calculation_ocr.appredcameraroll"
+    ios:
+      bundleId: "com.calculation_ocr.appredcameraroll"
+
+  app_red_filesystem:
+    app:
+      name: "App Red Filesystem"
+    android:
+      applicationId: "com.calculation_ocr.appredfilesystem"
+    ios:
+      bundleId: "com.calculation_ocr.appredfilesystem"
+
+  app_green_filesystem:
+    app:
+      name: "App Green Filesystem"
+    android:
+      applicationId: "com.calculation_ocr.appgreenfilesystem"
+    ios:
+      bundleId: "com.calculation_ocr.appgreenfilesystem"
+
+  app_green_camera_roll:
+    app:
+      name: "App Green Camera Roll"
+    android:
+      applicationId: "com.calculation_ocr.appgreencameraroll"
+    ios:
+      bundleId: "com.calculation_ocr.appgreencameraroll"
