@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:calculation_ocr/core/enum/data_source.dart';
 import 'package:calculation_ocr/dependency_injection.dart';
 import 'package:calculation_ocr/features/calculation/presentation/bloc/calculation/calculation_bloc.dart';
 import 'package:calculation_ocr/features/calculation/presentation/bloc/image/image_bloc.dart';
@@ -63,8 +62,6 @@ class CameraPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       sl<CalculationBloc>().add(CalculationEventSaveCalculation(
-                        image,
-                        DataSource.databaseStorage,
                         state.expression,
                         state.result,
                       ));
@@ -75,7 +72,7 @@ class CameraPage extends StatelessWidget {
               );
             } else {
               return const Center(
-                child: Text("EMPTY USERS"),
+                child: Text("EMPTY DATA"),
               );
             }
           },

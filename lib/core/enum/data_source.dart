@@ -1,1 +1,1 @@
-enum DataSource { encryptedStorage, databaseStorage }
+enum DataSourceType { encryptedStorage, databaseStorage }

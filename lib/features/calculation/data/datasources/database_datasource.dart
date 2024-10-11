@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:calculation_ocr/features/calculation/data/models/calculation_model.dart';
 import 'package:calculation_ocr/features/calculation/domain/entities/calculation.dart';
 
@@ -7,24 +8,34 @@ abstract class DatabaseDataSource {
 }
 
 class DatabaseDatasourceImpl implements DatabaseDataSource {
-  List<CalculationModel> calculations = [
-    const CalculationModel(
-      expression: '4 + 5',
-      result: '9',
-    ),
-  ];
+  final Database database;
+
+  DatabaseDatasourceImpl({required this.database});
 
   @override
   Future<List<CalculationModel>> getAllCalculation() async {
-    // throw UnimplementedError();
-    await Future.delayed(const Duration(seconds: 1));
-    return Future.value(calculations);
+    final List<Map<String, dynamic>> maps =
+        await database.query('calculations');
+
+    return List.generate(maps.length, (i) {
+      return CalculationModel(
+        expression: maps[i]['expression'],
+        result: maps[i]['result'],
+      );
+    });
   }
 
   @override
-  Future<bool> saveCalculation(Calculation calculation) {
-    calculations.add(CalculationModel(
-        expression: calculation.expression, result: calculation.result));
-    return Future.value(true);
+  Future<bool> saveCalculation(Calculation calculation) async {
+    await database.insert(
+      'calculations',
+      {
+        'expression': calculation.expression,
+        'result': calculation.result,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    return true;
   }
 }

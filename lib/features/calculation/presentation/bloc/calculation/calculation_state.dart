@@ -22,10 +22,9 @@ class CalculationStateError extends CalculationState {
 }
 
 class CalculationStateLoaded extends CalculationState {
-  final DataSource source;
   final List<Calculation> allCalculation;
 
-  CalculationStateLoaded(this.allCalculation, this.source);
+  CalculationStateLoaded(this.allCalculation);
 
   @override
   List<Object?> get props => [];
@@ -38,9 +37,9 @@ class CalculationStateSaved extends CalculationState {
   List<Object?> get props => [];
 }
 
-class CalculationStateSavedDatasource extends CalculationState {
-  CalculationStateSavedDatasource();
+// class CalculationStateUpdateDatasource extends CalculationState {
+//   CalculationStateUpdateDatasource();
 
-  @override
-  List<Object?> get props => [];
-}
+//   @override
+//   List<Object?> get props => [];
+// }

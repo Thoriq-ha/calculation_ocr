@@ -3,12 +3,12 @@ import 'package:calculation_ocr/core/error/failure.dart';
 import 'package:calculation_ocr/features/calculation/domain/repositories/calculation_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class SetDatasourceCalculation {
+class SetDatasourceTypeCalculation {
   final CalculationRepository calculationRepository;
 
-  const SetDatasourceCalculation(this.calculationRepository);
+  const SetDatasourceTypeCalculation(this.calculationRepository);
 
-  Future<Either<Failure, bool>> execute(DataSource source) async {
+  Future<Either<Failure, bool>> execute(DataSourceType source) async {
     return await calculationRepository.setDatasource(source);
   }
 }

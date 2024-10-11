@@ -8,7 +8,7 @@ abstract class CalculationRepository {
 
   Future<Either<Failure, bool>> saveCalculation(Calculation calculation);
 
-  Future<Either<Failure, bool>> setDatasource(DataSource source);
+  Future<Either<Failure, bool>> setDatasource(DataSourceType source);
 
-  Future<Either<Failure, DataSource>> getDatasource();
+  Future<Either<Failure, DataSourceType>> getDatasource();
 }
