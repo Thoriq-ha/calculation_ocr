@@ -19,6 +19,7 @@ class CameraPage extends StatelessWidget {
         title: const Text("Camera"),
       ),
       body: BlocListener<CalculationBloc, CalculationState>(
+        bloc: sl<CalculationBloc>(),
         listener: (context, state) {
           if (state is CalculationStateSaved) {
             sl<CalculationBloc>().add(const CalculationEventGetCalculation());

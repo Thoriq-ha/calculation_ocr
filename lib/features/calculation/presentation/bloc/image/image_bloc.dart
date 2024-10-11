@@ -30,13 +30,15 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
 
         String text = await _recognizedText(imageFromCamera.path);
         if (text == "") {
-          emit(ImageStateError("Invalid recognized", image: imageFromCamera));
+          emit(ImageStateError("Invalid recognized Text",
+              image: imageFromCamera));
           return;
         }
 
         String expression = _preprocessInput(text);
         if (expression == "") {
-          emit(ImageStateError("Invalid preprocess", image: imageFromCamera));
+          emit(ImageStateError("Text Value Invalid when Preprocessing",
+              image: imageFromCamera));
           return;
         }
 

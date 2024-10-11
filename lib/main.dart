@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:calculation_ocr/dependency_injection.dart';
-import 'package:calculation_ocr/observer.dart';
+import 'package:calculation_ocr/core/observer/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app.dart';
