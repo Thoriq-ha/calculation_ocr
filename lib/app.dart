@@ -1,52 +1,20 @@
-import 'package:flutter/foundation.dart';
+import 'package:calculation_ocr/core/themes/my_theme_data.dart';
+import 'package:calculation_ocr/routes/my_router.dart';
 import 'package:flutter/material.dart';
 
 import 'flavors.dart';
-import 'pages/my_home_page.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: MyRouter().router,
       title: F.title,
-      theme: ThemeData(
-          primarySwatch:
-              F.theme == FlavorTheme.green ? Colors.green : Colors.red,
-          appBarTheme: F.theme == FlavorTheme.green
-              ? const AppBarTheme(
-                  color: Colors.green,
-                )
-              : const AppBarTheme(
-                  color: Colors.red,
-                )),
-      home: _flavorBanner(
-        child: MyHomePage(),
-        show: kDebugMode,
-      ),
+      theme: F.theme == FlavorTheme.green
+          ? MyThemeData.greenTheme
+          : MyThemeData.redTheme,
     );
   }
-
-  Widget _flavorBanner({
-    required Widget child,
-    bool show = true,
-  }) =>
-      show
-          ? Banner(
-              child: child,
-              location: BannerLocation.topStart,
-              message: F.uIFunctionality.name,
-              color: F.theme == FlavorTheme.green
-                  ? Colors.green.withOpacity(0.6)
-                  : Colors.red.withOpacity(0.6),
-              textStyle: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.0,
-                  letterSpacing: 1.0),
-              textDirection: TextDirection.ltr,
-            )
-          : Container(
-              child: child,
-            );
 }
