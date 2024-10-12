@@ -1,0 +1,7 @@
+flutter_launcher_icons-app_green_camera_roll.yaml
+flutter_launcher_icons-app_green_filesystem.yaml
+flutter_launcher_icons-app_red_camera_roll.yaml
+flutter_launcher_icons-app_red_filesystem.yaml
+
+//run this
+dart run flutter_launcher_icons:main -f flutter_launcher_icons*
