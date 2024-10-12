@@ -38,7 +38,6 @@ class FileStoragePage extends StatelessWidget {
                   children: [
                     Container(
                       color: Colors.grey[300],
-                      // height: 300,
                       width: double.infinity,
                       child: (state.image?.path.isNotEmpty ?? false)
                           ? Image.file(File(state.image!.path))

@@ -21,7 +21,7 @@ class DatasourceTypeBloc extends Bloc<DatasourceEvent, DatasourceState> {
       final resultDataSourceType = await getDatasourceTypeCalculation.execute();
       resultDataSourceType.fold(
         (leftResultGetAllCalculation) {
-          emit(DatasourceStateError("Cannot get all calculation"));
+          emit(DatasourceStateError("Cannot get data source type"));
         },
         (rightResultGetAllCalculation) {
           emit(DatasourceStateLoaded(rightResultGetAllCalculation));
@@ -35,7 +35,7 @@ class DatasourceTypeBloc extends Bloc<DatasourceEvent, DatasourceState> {
           await setDatasourceTypeCalculation.execute(event.dataSource);
       resultDataSourceType.fold(
         (leftResultGetAllCalculation) {
-          emit(DatasourceStateError("Cannot get all calculation"));
+          emit(DatasourceStateError("Cannot set data source type"));
         },
         (rightResultGetAllCalculation) {
           emit(DatasourceStateUploaded());

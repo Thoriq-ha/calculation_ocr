@@ -20,7 +20,6 @@ class DataSourceOption extends StatelessWidget {
         }
 
         if (state is DatasourceStateLoaded) {
-          //snackbar
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               duration: const Duration(seconds: 1),
@@ -36,9 +35,9 @@ class DataSourceOption extends StatelessWidget {
       bloc: sl<DatasourceTypeBloc>()..add(const DatasourceEventGetDataSource()),
       builder: (context, state) {
         return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300), // Durasi transisi
-          switchInCurve: Curves.easeIn, // Kurva saat transisi masuk
-          switchOutCurve: Curves.easeOut, // Kurva saat transisi keluar
+          duration: const Duration(milliseconds: 300),
+          switchInCurve: Curves.easeIn,
+          switchOutCurve: Curves.easeOut,
           child: _buildStateContent(context, state),
         );
       },
@@ -48,8 +47,7 @@ class DataSourceOption extends StatelessWidget {
   Widget _buildStateContent(BuildContext context, DatasourceState state) {
     if (state is DatasourceStateError) {
       return Center(
-        key: const ValueKey(
-            'error'), // Gunakan key untuk mengidentifikasi widget unik
+        key: const ValueKey('error'),
         child: Text(state.message),
       );
     } else if (state is DatasourceStateEmpty) {

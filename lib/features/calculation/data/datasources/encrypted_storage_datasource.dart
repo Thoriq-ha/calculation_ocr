@@ -22,13 +22,12 @@ class EncryptedDatasourceImpl implements EncryptedStorageDataSource {
     final directory = await getApplicationDocumentsDirectory();
     final path = '${directory.path}/secure_data';
 
-    // Buat direktori jika belum ada
     final dir = Directory(path);
     if (!(await dir.exists())) {
       await dir.create(recursive: true);
     }
 
-    return '$path/secure_data.txt'; // Path ke file
+    return '$path/secure_data.txt';
   }
 
   @override

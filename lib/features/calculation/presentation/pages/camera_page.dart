@@ -110,7 +110,6 @@ class CameraPage extends StatelessWidget {
                     Text(
                       "Result: ${state.result}",
                       style: const TextStyle(
-                        // fontWeight: FontWeight.w700,
                         fontSize: 18,
                         color: Colors.black,
                       ),

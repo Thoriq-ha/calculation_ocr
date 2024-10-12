@@ -36,10 +36,3 @@ class CalculationStateSaved extends CalculationState {
   @override
   List<Object?> get props => [];
 }
-
-// class CalculationStateUpdateDatasource extends CalculationState {
-//   CalculationStateUpdateDatasource();
-
-//   @override
-//   List<Object?> get props => [];
-// }
