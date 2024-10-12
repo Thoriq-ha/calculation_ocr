@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:calculation_ocr/core/enum/data_source.dart';
+import 'package:calculation_ocr/features/calculation/domain/enum/data_source.dart';
 import 'package:calculation_ocr/core/error/failure.dart';
 import 'package:calculation_ocr/core/utils/base64_padding.dart';
 import 'package:calculation_ocr/features/calculation/data/datasources/database_datasource.dart';

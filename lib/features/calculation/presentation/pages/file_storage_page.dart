@@ -33,46 +33,140 @@ class FileStoragePage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (state is ImageStateError) {
-              return SizedBox(
-                width: double.infinity,
+              return SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    (state.image?.path.isNotEmpty ?? false)
-                        ? Image.file(File(state.image!.path))
-                        : Container(),
-                    Text(state.message),
-                    ElevatedButton(
-                      onPressed: () {
-                        sl<ImageBloc>().add(ImageEventPickImageFile());
-                      },
-                      child: const Text("Retry"),
+                    Container(
+                      color: Colors.grey[300],
+                      // height: 300,
+                      width: double.infinity,
+                      child: (state.image?.path.isNotEmpty ?? false)
+                          ? Image.file(File(state.image!.path))
+                          : Container(),
+                    ),
+                    const SizedBox(height: 16),
+                    const Icon(
+                      Icons.error_outline,
+                      color: Colors.red,
+                      size: 60,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      "Oops!! ${state.message}",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.red,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          sl<ImageBloc>().add(ImageEventPickImageFile());
+                        },
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.refresh),
+                            SizedBox(width: 10),
+                            Text("Retry"),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
               );
             } else if (state is ImageStateImagePicked) {
               XFile image = state.image;
-              return Column(
-                children: [
-                  Image.file(File(image.path)),
-                  Text("Expression: ${state.expression}"),
-                  Text("Result: ${state.result}"),
-                  ElevatedButton(
-                    onPressed: () {
-                      sl<CalculationBloc>().add(CalculationEventSaveCalculation(
-                        state.expression,
-                        state.result,
-                      ));
-                    },
-                    child: const Text("Save"),
-                  ),
-                ],
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      color: Colors.grey[300],
+                      width: double.infinity,
+                      child: Image.file(
+                        File(image.path),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.green[300],
+                      size: 60,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      "Expression ${state.expression}",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Result: ${state.result}",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          sl<CalculationBloc>()
+                              .add(CalculationEventSaveCalculation(
+                            state.expression,
+                            state.result,
+                          ));
+                        },
+                        child: const Text("Save"),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          sl<ImageBloc>().add(ImageEventPickImageFile());
+                        },
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.refresh),
+                            SizedBox(width: 10),
+                            Text("Retry"),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                  ],
+                ),
               );
             } else {
-              return const Center(
-                child: Text("EMPTY DATA"),
+              return Center(
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        sl<ImageBloc>().add(ImageEventPickImageCamera());
+                      },
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.refresh),
+                          SizedBox(width: 10),
+                          Text("Retry"),
+                        ],
+                      ),
+                    )),
               );
             }
           },

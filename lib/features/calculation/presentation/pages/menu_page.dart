@@ -12,30 +12,48 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(F.title),
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           sl<CalculationBloc>().add(const CalculationEventGetCalculation());
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              const CalculationListWidget(),
-              const DataSourceOption(),
-              ElevatedButton(
-                onPressed: () {
-                  if (F.uIFunctionality == UIFunctionality.camera) {
-                    context.pushNamed("camera");
-                  } else {
-                    context.pushNamed('file_storage');
-                  }
-                },
-                child: Text(F.uIFunctionality == UIFunctionality.camera
-                    ? 'Camera'
-                    : 'File System'),
-              )
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                const CalculationListCard(),
+                const SizedBox(height: 34),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (F.uIFunctionality == UIFunctionality.camera) {
+                        context.pushNamed("camera");
+                      } else {
+                        context.pushNamed('file_storage');
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(F.uIFunctionality == UIFunctionality.camera
+                            ? Icons.camera
+                            : Icons.file_copy),
+                        Text(F.uIFunctionality == UIFunctionality.camera
+                            ? 'Take Image from Camera'
+                            : 'Take Image from File System'),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const DataSourceOption(),
+              ],
+            ),
           ),
         ),
       ),

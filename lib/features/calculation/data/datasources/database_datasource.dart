@@ -14,6 +14,7 @@ class DatabaseDatasourceImpl implements DatabaseDataSource {
 
   @override
   Future<List<CalculationModel>> getAllCalculation() async {
+    await Future.delayed(const Duration(milliseconds: 500));
     final List<Map<String, dynamic>> maps =
         await database.query('calculations');
 

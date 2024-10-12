@@ -1,4 +1,4 @@
-import 'package:calculation_ocr/core/enum/data_source.dart';
+import 'package:calculation_ocr/features/calculation/domain/enum/data_source.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharePrefDataSource {

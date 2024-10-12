@@ -37,7 +37,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
 
         String expression = _preprocessInput(text);
         if (expression == "") {
-          emit(ImageStateError("Text Value Invalid when Preprocessing",
+          emit(ImageStateError("Text Value Invalid Preprocess",
               image: imageFromCamera));
           return;
         }
@@ -77,7 +77,8 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
 
         String expression = _preprocessInput(text);
         if (expression == "") {
-          emit(ImageStateError("Invalid preprocess", image: imageFromGallery));
+          emit(ImageStateError("Text Value Invalid Preprocess",
+              image: imageFromGallery));
           return;
         }
 

@@ -1,4 +1,4 @@
-import 'package:calculation_ocr/core/enum/data_source.dart';
+import 'package:calculation_ocr/features/calculation/domain/enum/data_source.dart';
 import 'package:calculation_ocr/dependency_injection.dart';
 import 'package:calculation_ocr/features/calculation/presentation/bloc/calculation/calculation_bloc.dart';
 import 'package:calculation_ocr/features/calculation/presentation/bloc/datasource_type/datasource_bloc.dart';
@@ -13,81 +13,69 @@ class DataSourceOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DatasourceTypeBloc, DatasourceState>(
-        listener: (context, state) {
-          if (state is DatasourceStateUploaded) {
-            sl<CalculationBloc>().add(const CalculationEventGetCalculation());
-            sl<DatasourceTypeBloc>().add(const DatasourceEventGetDataSource());
-          }
+      listener: (context, state) {
+        if (state is DatasourceStateUploaded) {
+          sl<CalculationBloc>().add(const CalculationEventGetCalculation());
+          sl<DatasourceTypeBloc>().add(const DatasourceEventGetDataSource());
+        }
+
+        if (state is DatasourceStateLoaded) {
+          //snackbar
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              duration: const Duration(seconds: 1),
+              content: Text(
+                state.source == DataSourceType.encryptedStorage
+                    ? 'Encrypted Storage Selected'
+                    : 'Database Storage Selected',
+              ),
+            ),
+          );
+        }
+      },
+      bloc: sl<DatasourceTypeBloc>()..add(const DatasourceEventGetDataSource()),
+      builder: (context, state) {
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300), // Durasi transisi
+          switchInCurve: Curves.easeIn, // Kurva saat transisi masuk
+          switchOutCurve: Curves.easeOut, // Kurva saat transisi keluar
+          child: _buildStateContent(context, state),
+        );
+      },
+    );
+  }
+
+  Widget _buildStateContent(BuildContext context, DatasourceState state) {
+    if (state is DatasourceStateError) {
+      return Center(
+        key: const ValueKey(
+            'error'), // Gunakan key untuk mengidentifikasi widget unik
+        child: Text(state.message),
+      );
+    } else if (state is DatasourceStateEmpty) {
+      return const Center(
+        key: ValueKey('empty'),
+        child: Text('No Datasource'),
+      );
+    } else if (state is DatasourceStateLoaded) {
+      return SwitchListTile(
+        key: const ValueKey('loaded'),
+        title: const Text('Encrypted Storage'),
+        subtitle:
+            const Text('Switch between Encrypted Storage and Database Storage'),
+        value: state.source == DataSourceType.encryptedStorage,
+        onChanged: (bool value) {
+          sl<DatasourceTypeBloc>().add(DatasourceEventSetDataSource(
+              state.source == DataSourceType.encryptedStorage
+                  ? DataSourceType.databaseStorage
+                  : DataSourceType.encryptedStorage));
         },
-        bloc: sl<DatasourceTypeBloc>()
-          ..add(const DatasourceEventGetDataSource()),
-        builder: (context, state) {
-          if (state is DatasourceStateLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is DatasourceStateError) {
-            return Center(
-              child: Text(state.message),
-            );
-          } else if (state is DatasourceStateEmpty) {
-            return const Center(
-              child: Text('No Datasource'),
-            );
-          } else if (state is DatasourceStateLoaded) {
-            return Row(
-              children: [
-                Flexible(
-                  child: Material(
-                    child: InkWell(
-                      onTap: () {
-                        sl<DatasourceTypeBloc>().add(
-                            const DatasourceEventSetDataSource(
-                                DataSourceType.encryptedStorage));
-                      },
-                      child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color:
-                                state.source == DataSourceType.encryptedStorage
-                                    ? Colors.amber
-                                    : Colors.grey,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child:
-                              const Center(child: Text('Encrypted Storage'))),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Flexible(
-                  child: Material(
-                    child: InkWell(
-                      onTap: () {
-                        sl<DatasourceTypeBloc>().add(
-                            const DatasourceEventSetDataSource(
-                                DataSourceType.databaseStorage));
-                      },
-                      child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color:
-                                state.source == DataSourceType.databaseStorage
-                                    ? Colors.amber
-                                    : Colors.grey,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Center(child: Text('Database Storage'))),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return const Center(
-              child: Text("EMPTY Datasource"),
-            );
-          }
-        });
+      );
+    } else {
+      return const Center(
+        key: ValueKey('loading'),
+        child: Text("EMPTY Datasource"),
+      );
+    }
   }
 }

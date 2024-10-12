@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:calculation_ocr/core/enum/data_source.dart';
+import 'package:calculation_ocr/features/calculation/domain/enum/data_source.dart';
 import 'package:calculation_ocr/features/calculation/domain/usecases/get_datasource_type.dart';
 import 'package:calculation_ocr/features/calculation/domain/usecases/set_datasource_type.dart';
 import 'package:equatable/equatable.dart';
