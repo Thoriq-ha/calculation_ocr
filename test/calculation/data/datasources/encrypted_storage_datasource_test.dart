@@ -48,7 +48,7 @@ void main() {
       // Arrange
       const key = 'testEncryptionKey';
       when(mockSecureStorage.write(key: "encryptionKey", value: key))
-          .thenAnswer((_) async => null);
+          .thenAnswer((_) async {});
 
       // Act
       await dataSource.saveEncryptionKey(key);
