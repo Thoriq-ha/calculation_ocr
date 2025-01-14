@@ -1,3 +1,5 @@
+[![Codemagic build status](https://api.codemagic.io/apps/67808ebbeef0aea4f574a9ea/build-app-red-camera-roll/status_badge.svg)](https://codemagic.io/app/67808ebbeef0aea4f574a9ea/build-app-red-camera-roll/latest_build)
+
 # Image-to-Result Calculator App
 
 This Flutter app allows users to capture simple arithmetic expressions from images and compute their results. The app supports multiple configurations, including different themes, input methods, and storage engines for storing recent calculations. The app leverages BLOC architecture and handles multiple app flavors for different use cases.
