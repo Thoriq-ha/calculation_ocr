@@ -8,6 +8,7 @@ void main() {
           iv: IV.fromBase64("F6b+3KYxQASqxMQMTk5xbA=="));
 
   print(decrypted);
+  print('decrypted');
 }
 
 // import 'package:encrypt/encrypt.dart';
