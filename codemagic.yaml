@@ -2,8 +2,17 @@
 workflows:
   build-app-red-camera-roll:
     name: Build App Red Camera Roll
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: "main"
+          include: true
+          source: true
     environment:
-      flutter: 3.24.3 # Specified Flutter version 3.24.3
+      flutter: 3.24.3
+      xcode: latest
       vars:
         FLUTTER_TARGET: "lib/main_app_red_camera_roll.dart"
         FLUTTER_FLAVOR: "app_red_camera_roll"
@@ -11,6 +20,10 @@ workflows:
       - name: Install dependencies
         script: |
           flutter pub get
+
+      - name: Analyze code
+        script: |
+          flutter analyze
 
       - name: Run tests
         script: |
@@ -26,6 +39,9 @@ workflows:
       - build/app/outputs/bundle/**
 
     publishing:
+      email:
+        recipients:
+          - ithoriq0@gmail.com
       scripts:
         - name: Print path to AAB
           script: |
