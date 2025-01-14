@@ -1,0 +1,32 @@
+# Codemagic configuration file for Flutter project
+workflows:
+  build-app-red-camera-roll:
+    name: Build App Red Camera Roll
+    environment:
+      flutter: 3.24.3 # Specified Flutter version 3.24.3
+      vars:
+        FLUTTER_TARGET: "lib/main_app_red_camera_roll.dart"
+        FLUTTER_FLAVOR: "app_red_camera_roll"
+    scripts:
+      - name: Install dependencies
+        script: |
+          flutter pub get
+
+      - name: Run tests
+        script: |
+          flutter test
+
+      - name: Build AAB
+        script: |
+          flutter build aab \
+            --flavor $FLUTTER_FLAVOR \
+            -t $FLUTTER_TARGET
+
+    artifacts:
+      - build/app/outputs/bundle/**
+
+    publishing:
+      scripts:
+        - name: Print path to AAB
+          script: |
+            echo "Your AAB file is located at: $(ls build/app/outputs/bundle/release/*.aab)"
